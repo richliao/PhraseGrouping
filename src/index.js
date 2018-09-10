@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'react-sortable-tree/styles.css';
+//import 'react-sortable-tree/styles.css';
+import './generic.css';
 import KeyWordsTree from './KeyWordsTree';
 
 const title = 'Initial example of react sortable tree';

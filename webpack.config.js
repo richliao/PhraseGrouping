@@ -8,6 +8,11 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader']
+      },
+      {
+        // Used for importing css from external modules (react-virtualized, etc.)
+        test: /\.css$/,
+        use:['style-loader','css-loader']
       }
     ]
   },
