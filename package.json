@@ -24,6 +24,7 @@
   "dependencies": {
     "babel-preset-env": "^1.7.0",
     "css-loader": "^1.0.0",
+    "json-loader": "^0.5.7",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-sortable-tree": "^2.2.0",

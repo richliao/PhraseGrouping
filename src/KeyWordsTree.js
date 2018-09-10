@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import SortableTree, { addNodeUnderParent, removeNodeAtPath } from 'react-sortable-tree';
 // In your own app, you would need to use import styles once in the app
+import myData from './data.json';
+
+console.log(myData);
 
 const firstNames = [
   'Abraham',
@@ -62,6 +65,8 @@ export default class KeyWordsTree extends Component {
       addAsFirstChild: false,
     };
   }
+
+
 
   render() {
     const getNodeKey = ({ treeIndex }) => treeIndex;
