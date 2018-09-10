@@ -1,11 +1,9 @@
 [
     {
-      "id": 1,
-      "first_name": "Helen",
-      "last_name": "Nguyen"
-    }, {
-      "id": 2,
-      "first_name": "Carlos",
-      "last_name": "Fowler"
+      "title": "Finra", 
+      "children":[{"title":"MemberReg"}, {"title":"Enforcement"}]
+    }, 
+    {
+      "title": "SEC"
     }
 ]

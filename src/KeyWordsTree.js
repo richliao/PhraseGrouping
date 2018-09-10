@@ -5,63 +5,13 @@ import myData from './data.json';
 
 console.log(myData);
 
-const firstNames = [
-  'Abraham',
-  'Adam',
-  'Agnar',
-  'Albert',
-  'Albin',
-  'Albrecht',
-  'Alexander',
-  'Alfred',
-  'Alvar',
-  'Ander',
-  'Andrea',
-  'Arthur',
-  'Axel',
-  'Bengt',
-  'Bernhard',
-  'Carl',
-  'Daniel',
-  'Einar',
-  'Elmer',
-  'Eric',
-  'Erik',
-  'Gerhard',
-  'Gunnar',
-  'Gustaf',
-  'Harald',
-  'Herbert',
-  'Herman',
-  'Johan',
-  'John',
-  'Karl',
-  'Leif',
-  'Leonard',
-  'Martin',
-  'Matt',
-  'Mikael',
-  'Nikla',
-  'Norman',
-  'Oliver',
-  'Olof',
-  'Olvir',
-  'Otto',
-  'Patrik',
-  'Peter',
-  'Petter',
-  'Robert',
-  'Rupert',
-  'Sigurd',
-  'Simon',
-];
 
 export default class KeyWordsTree extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      treeData: [{ title: 'Peter Olofsson' }, { title: 'Karl Johansson' }],
+      treeData: myData,
       addAsFirstChild: false,
     };
   }
@@ -71,7 +21,8 @@ export default class KeyWordsTree extends Component {
   render() {
     const getNodeKey = ({ treeIndex }) => treeIndex;
     const getRandomName = () =>
-      firstNames[Math.floor(Math.random() * firstNames.length)];
+      "NewName";
+      
     return (
       <div>
         <div style={{ height: 300 }}>
