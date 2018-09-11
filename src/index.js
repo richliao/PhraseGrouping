@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style.css';
-import KeyWordsTree from './KeyWordsTree';
+import KeywordSearchTree from './KeywordSearchTree';
 
 ReactDOM.render(
   <div>
-  <p>Keywords grouping</p>
-  <KeyWordsTree />
+  <KeywordSearchTree />
   </div>,
   document.getElementById('app')
 );
