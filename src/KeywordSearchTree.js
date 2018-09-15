@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SortableTree from 'react-sortable-tree';
+import SortableTree, { addNodeUnderParent, removeNodeAtPath } from 'react-sortable-tree';
 
 import myData from './data.json';
 
@@ -14,6 +14,7 @@ export default class KeywordSearchTree extends Component {
       searchFocusIndex: 0,
       searchFoundCount: null,
       treeData: myData,
+      savedNode: ''
     };
   }
 
@@ -41,6 +42,7 @@ export default class KeywordSearchTree extends Component {
             : 0,
       });
 
+    const getNodeKey = ({ treeIndex }) => treeIndex;
     const getRandomName = () =>
       "New Name";
     
@@ -88,6 +90,8 @@ export default class KeywordSearchTree extends Component {
           </span>
         </form>
 
+        <p>Cutted node: {this.state.savedNode}</p>
+
         <div style={{ height: 800 }}>
           <SortableTree
             treeData={this.state.treeData}
@@ -129,9 +133,7 @@ export default class KeywordSearchTree extends Component {
                         expandParent: true,
                         getNodeKey,
                         newNode: {
-                          title: `${getRandomName()} ${
-                            node.title.split(' ')[0]
-                          }sson`,
+                          title: this.state.savedNode,
                         },
                         addAsFirstChild: state.addAsFirstChild,
                       }).treeData,
@@ -141,17 +143,22 @@ export default class KeywordSearchTree extends Component {
                   Add Child
                 </button>,
                 <button
-                  onClick={() =>
-                    this.setState(state => ({
-                      treeData: removeNodeAtPath({
-                        treeData: state.treeData,
-                        path,
-                        getNodeKey,
-                      }),
-                    }))
+                  onClick={() => {
+                    // this.setState(state => ({
+                    //   treeData: removeNodeAtPath({
+                    //     treeData: state.treeData,
+                    //     path,
+                    //     getNodeKey,
+                    //   }),
+                    // }));
+                    this.setState({savedNode:node.title});
+                    console.log(node.title);
+                    console.log(path);
+                    console.log(path[path.length-1]);
+                  }
                   }
                 >
-                  Remove
+                  Cut
                 </button>,
               ],
             })}
