@@ -140,17 +140,17 @@ export default class KeywordSearchTree extends Component {
                     }))
                   }
                 >
-                  Add Child
+                  Paste as Child
                 </button>,
                 <button
                   onClick={() => {
-                    // this.setState(state => ({
-                    //   treeData: removeNodeAtPath({
-                    //     treeData: state.treeData,
-                    //     path,
-                    //     getNodeKey,
-                    //   }),
-                    // }));
+                    this.setState(state => ({
+                      treeData: removeNodeAtPath({
+                        treeData: state.treeData,
+                        path,
+                        getNodeKey,
+                      }),
+                    }));
                     this.setState({savedNode:node.title});
                     console.log(node.title);
                     console.log(path);
