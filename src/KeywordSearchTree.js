@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import SortableTree, { addNodeUnderParent, removeNodeAtPath } from 'react-sortable-tree';
+import SortableTree, { addNodeUnderParent, removeNodeAtPath, changeNodeAtPath } from 'react-sortable-tree';
+import FileSaver from 'file-saver';
 
 import myData from './data.json';
 
@@ -14,7 +15,8 @@ export default class KeywordSearchTree extends Component {
       searchFocusIndex: 0,
       searchFoundCount: null,
       treeData: myData,
-      savedNode: ''
+      savedNode: '',
+      newNode: ''
     };
   }
 
@@ -46,7 +48,14 @@ export default class KeywordSearchTree extends Component {
     const getRandomName = () =>
       "New Name";
     
-      return (
+    const fileToSave = () => {
+      var blob = new Blob([JSON.stringify(this.state.treeData)], {
+          type: 'application/json'
+      });
+      FileSaver.saveAs(blob, "savedTree.txt");
+    }
+
+    return (
       <div>
         <h2>Keyword organizer</h2>
         <form
@@ -123,6 +132,26 @@ export default class KeywordSearchTree extends Component {
               })
             }
             generateNodeProps={({ node, path }) => ({
+              title: (
+                <input
+                  style={{ fontSize: '1.1rem' }}
+                  value={node.title}
+                  onChange={event => {
+                    const name = event.target.value;
+                    
+                    console.log(name);
+                    
+                    this.setState(state => ({
+                      treeData: changeNodeAtPath({
+                        treeData: state.treeData,
+                        path,
+                        getNodeKey,
+                        newNode: { title: name },
+                      }),
+                    }));
+                  }}
+                />
+              ),              
               buttons: [
                 <button
                   onClick={() =>
@@ -133,16 +162,32 @@ export default class KeywordSearchTree extends Component {
                         expandParent: true,
                         getNodeKey,
                         newNode: {
-                          title: this.state.savedNode,
+                          title: `${node.title}1`,
                         },
-                        addAsFirstChild: state.addAsFirstChild,
                       }).treeData,
                     }))
                   }
                 >
-                  Paste as Child
+                  Add child
                 </button>,
                 <button
+                onClick={() =>
+                  this.setState(state => ({
+                    treeData: addNodeUnderParent({
+                      treeData: state.treeData,
+                      parentKey: path[path.length - 1],
+                      expandParent: true,
+                      getNodeKey,
+                      newNode: {
+                        title: this.state.savedNode,
+                      },
+                    }).treeData,
+                  }))
+                }
+              >
+                Paste as child
+              </button>,                
+              <button
                   onClick={() => {
                     this.setState(state => ({
                       treeData: removeNodeAtPath({
@@ -164,16 +209,32 @@ export default class KeywordSearchTree extends Component {
             })}
 
           />
-        <button
-          onClick={() =>
+          <input
+            id="new-node"
+            type="text"
+            style={{ fontSize: '1rem' }}
+            value={this.state.newNode}
+            onChange={event =>
+              this.setState({ newNode: event.target.value })
+            }
+          />
+          <button
+            onClick={() =>
             this.setState(state => ({
               treeData: state.treeData.concat({
-                title: `${getRandomName()}`,
+                title: `${this.state.newNode}`,
               }),
             }))
           }
         >
           Add node
+        </button>
+        <button
+          onClick={
+            fileToSave
+          }
+        >
+          Save file
         </button>
         </div>
       </div>
