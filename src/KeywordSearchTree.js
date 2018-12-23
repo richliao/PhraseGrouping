@@ -18,6 +18,28 @@ export default class KeywordSearchTree extends Component {
       savedNode: '',
       newNode: ''
     };
+
+    this.handleFileSelect = this.handleFileSelect.bind(this);    
+  }
+
+  setJsonFile(content) {
+    this.setState({treeData: content});
+    console.log(this.state.treeData);
+  }
+
+  handleFileSelect(evt) {
+    let files = evt.target.files;
+    if (!files.length) {
+      alert('No file select');
+      return;
+    }
+    let file = files[0];
+    let that = this;
+    let reader = new FileReader();
+    reader.onload = function(e) {
+      that.setJsonFile(e.target.result);
+    };
+    reader.readAsText(file);
   }
 
   render() {
@@ -209,6 +231,9 @@ export default class KeywordSearchTree extends Component {
             })}
 
           />
+          <div>
+            <input type="file" onChange={this.handleFileSelect}/>
+          </div>          
           <input
             id="new-node"
             type="text"
